@@ -36,21 +36,15 @@ class Menu(MenuItem):
     def run(self):
         keep = True
         if self.__onStartCommand is not None:
-            while keep and self.__onStartCommand():
-                if self.__beforeSelectedCommand is not None:
-                    self.__beforeSelectedCommand()
-                self.printMenu()
-                keep = self.handleUserInput()
-            if self.__onFinishCommand is not None:
-                self.__onFinishCommand()
-        else:
-            while keep:
-                if self.__beforeSelectedCommand is not None:
-                    self.__beforeSelectedCommand()
-                self.printMenu()
-                keep = self.handleUserInput()
-            if self.__onFinishCommand is not None:
-                self.__onFinishCommand()
+            if not self.__onStartCommand():
+                return
+        while keep:
+            if self.__beforeSelectedCommand is not None:
+                self.__beforeSelectedCommand()
+            self.printMenu()
+            keep = self.handleUserInput()
+        if self.__onFinishCommand is not None:
+            self.__onFinishCommand()
     def printMenu(self):
         for i,x in enumerate(self.__items):
             print(f"{i+1}.{x.title}")
