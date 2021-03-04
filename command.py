@@ -74,7 +74,7 @@ def edit_patronymic_command():
 
 def edit_group_command():
     a = input("Введите новую группу: ")
-    EditContext().student.patronymic = a 
+    EditContext().student.group = a 
 
 def add_mark_command():
     a = input("Введите предмет по которому нужно добавить оценку: ")
