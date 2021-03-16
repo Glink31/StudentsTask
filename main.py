@@ -1,4 +1,5 @@
 from menu import Menu
+from studentregistry import StudentRegistry
 from command import (
     add_student_command,
     list_students_command,
@@ -17,6 +18,7 @@ from command import (
     delete_mark_command
 ) 
 
+StudentRegistry().load()
 main_menu = Menu()
 main_menu.additem('Список студентов',list_students_command)
 main_menu.additem('Добавить студента',add_student_command)

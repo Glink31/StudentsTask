@@ -18,6 +18,7 @@ def add_student_command():
     group = input("Введите группу студента: ")
     e = Student(name,surname,patronymic,group)
     StudentRegistry().addStudent(e)
+    StudentRegistry().save()
 
 def delete_student_command():
     g = BriefPrintVisitor()
@@ -29,6 +30,7 @@ def delete_student_command():
             confirm = input(f"Вы уверены что хотите удалить студента {m.name} {m.surname} {m.patronymic} ({m.group})? [y/N]").lower()
             if confirm == "y":
                 StudentRegistry().deleteStudent(index)
+                StudentRegistry().save()
         
 def show_high_achievers_command():
     h = HighAchieverPrintVisitor()
@@ -63,32 +65,39 @@ def deselect_student_command():
 def edit_name_command():
     a = input("Введите новое имя: ")
     EditContext().student.name = a
+    StudentRegistry().save()
 
 def edit_surname_command():
     a = input("Введите новую фамилию: ")
     EditContext().student.surname = a
+    StudentRegistry().save()
 
 def edit_patronymic_command():
     a = input("Введите новое отчество: ")
     EditContext().student.patronymic = a
+    StudentRegistry().save()
 
 def edit_group_command():
     a = input("Введите новую группу: ")
     EditContext().student.group = a 
+    StudentRegistry().save()
 
 def add_mark_command():
     a = input("Введите предмет по которому нужно добавить оценку: ")
     if  a not in EditContext().student.marks:
         b = int(input("Введите оценку: "))
         EditContext().student.marks[a] = b
+        StudentRegistry().save()
     else:
         print("Оценка по этому предмету у ученика уже есть")
+
 
 def edit_mark_command():
     a = input("Введите предмет который нужно изменить: ")
     if a in EditContext().student.marks:
         b = int(input("Введите новую оценку: "))
         EditContext().student.marks[a] = b
+        StudentRegistry().save()
     else:
         print("Такого предмета нет у ученика")
 
@@ -98,5 +107,6 @@ def delete_mark_command():
         confirm = input(f"Вы уверены что хотите удалить оценку по предмету {a}? y/n").lower()
         if confirm == "y":
             del EditContext().student.marks[a]
+            StudentRegistry().save()
     else:
         print("Такого предмета нет у ученика")
